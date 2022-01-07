@@ -1,7 +1,7 @@
 import ReviewList from 'pages/reviews/ReviewList';
 import Profile from 'pages/accounts/Profile';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from 'pages/accounts/Login';
 import TopNav from 'compomemts/TopNav';
 
@@ -10,9 +10,10 @@ function App() {
     <div className="app">
       <TopNav />
       <Routes>
+        <Route path="/" element={<Navigate to="/reviews/" />} />
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
-        <Route path="/accounts/reviews/" element={<ReviewList />} />
+        <Route path="/reviews/" element={<ReviewList />} />
       </Routes>
     </div>
   );
