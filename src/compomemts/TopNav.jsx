@@ -11,7 +11,7 @@ function TopNav() {
           <MyLink to="/accounts/profile/">프로필</MyLink>
         </li>
         <li>
-          <MyLink to="/accounts/reviews/">리뷰</MyLink>
+          <MyLink to="/reviews/">리뷰</MyLink>
         </li>
       </ul>
     </div>
