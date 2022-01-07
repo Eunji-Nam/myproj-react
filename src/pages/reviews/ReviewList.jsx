@@ -1,7 +1,9 @@
 import Axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import DebugStates from 'compomemts/DebugStates';
 
 function ReviewList() {
+  const [reviewList, setReviewList] = useState([]);
   // useEffect의 첫번째 인자는 함수, 두번째 인자는 배열
   useEffect(() => {
     refetch();
@@ -11,10 +13,11 @@ function ReviewList() {
     const url = 'http://127.0.0.1:8000/shop/api/reviews/';
     // Promise 객체
     Axios.get(url)
-      .then((response) => {
+      .then(({ data }) => {
         console.group('정상 응답');
-        console.log(response);
+        console.log(data);
         console.groupEnd();
+        setReviewList(data);
       })
       .catch((error) => {
         console.group('에러 응답');
@@ -26,6 +29,8 @@ function ReviewList() {
   return (
     <div>
       <h2>Review List</h2>
+      <hr />
+      <DebugStates reviewList={reviewList} />
     </div>
   );
 }
