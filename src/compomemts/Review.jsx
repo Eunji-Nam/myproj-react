@@ -24,7 +24,6 @@ function Review({ review, handleEdit, handleDelete }) {
           삭제
         </span>
       </div>
-
       {content}
       <Rating score={score} />
     </div>
