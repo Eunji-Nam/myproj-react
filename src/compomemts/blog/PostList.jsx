@@ -21,6 +21,12 @@ function PostList() {
   return (
     <div>
       <h2>Post List</h2>
+      <button
+        onClick={() => navigate('/blog/new/')}
+        className="bg-orange-200 hover:bg-orange-400 p-1 rounded text-sm cursor-point"
+      >
+        New Post
+      </button>
 
       {postList.map((post) => (
         <div className="bg-green-100 border-2 border-green-400 my-2 p-1">
@@ -28,12 +34,15 @@ function PostList() {
             onClick={() => {
               navigate(`/blog/${post.id}/`);
             }}
-            className="font-bold hover:text-green-700"
+            className="font-bold hover:text-green-700 cursor-pointer"
           >
             {post.title}
           </ul>
           <div className="flex justify-end">
-            <button className="hover:text-blue-400 cursor-pointer mr-1">
+            <button
+              onClick={() => navigate(`/blog/${post.id}/edit/`)}
+              className="hover:text-blue-400 cursor-pointer mr-1"
+            >
               수정
             </button>
             <button className="hover:text-red-400 cursor-pointer">삭제</button>

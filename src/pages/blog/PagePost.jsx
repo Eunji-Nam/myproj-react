@@ -1,7 +1,11 @@
 import PostList from 'compomemts/blog/PostList';
 
 function PagePost() {
-  return <PostList />;
+  return (
+    <div>
+      <PostList />
+    </div>
+  );
 }
 
 export default PagePost;

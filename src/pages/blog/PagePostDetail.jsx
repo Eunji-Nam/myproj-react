@@ -1,7 +1,11 @@
 import PostDetail from 'compomemts/blog/PostDetail';
 
 function PagePostDetail() {
-  return <PostDetail />;
+  return (
+    <div>
+      <PostDetail />
+    </div>
+  );
 }
 
 export default PagePostDetail;
