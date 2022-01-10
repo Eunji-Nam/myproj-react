@@ -6,7 +6,8 @@ import Login from 'pages/accounts/Login';
 import TopNav from 'compomemts/TopNav';
 import Components from 'pages/examples/Components';
 import PageReviewForm from 'pages/reviews/pageReviewForm';
-import PageBlog from 'pages/blog/PageBlog';
+import PagePost from 'pages/blog/PagePost';
+import PagePostDetail from 'pages/blog/PagePostDetail';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/" element={<Navigate to="/reviews/" />} />
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
-        <Route path="/blog/" element={<PageBlog />} />
+        <Route path="/blog/" element={<PagePost />} />
+        <Route path="/blog/:postId/" element={<PagePostDetail />} />
         <Route path="/reviews/" element={<ReviewList />} />
         <Route path="/reviews/new/" element={<PageReviewForm />} />
         <Route path="reviews/:reviewId/edit/" element={<PageReviewForm />} />
