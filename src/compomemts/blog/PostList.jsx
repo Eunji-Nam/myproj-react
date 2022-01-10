@@ -18,6 +18,19 @@ function PostList() {
     fetchPost();
   }, []);
 
+  const handlePostDelete = (deletingPost) => {
+    const { id: deletingPostId } = deletingPost;
+    const url = `http://127.0.0.1:8000/blog/api/posts/${deletingPostId}/`;
+
+    Axios.delete(url)
+      .then(() => {
+        setPostList((prevPostList) =>
+          prevPostList.filter((post) => post.id !== deletingPostId),
+        );
+      })
+      .catch((error) => error);
+  };
+
   return (
     <div>
       <h2>Post List</h2>
@@ -45,7 +58,12 @@ function PostList() {
             >
               수정
             </button>
-            <button className="hover:text-red-400 cursor-pointer">삭제</button>
+            <button
+              onClick={() => handlePostDelete(post)}
+              className="hover:text-red-400 cursor-pointer"
+            >
+              삭제
+            </button>
           </div>
         </div>
       ))}

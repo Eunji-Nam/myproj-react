@@ -29,11 +29,10 @@ function PagePostForm() {
       ? 'http://127.0.0.1:8000/blog/api/posts/'
       : `http://127.0.0.1:8000/blog/api/posts/${postId}/`;
     try {
-      await Axios.post(url, fieldValues);
       if (!postId) {
         await Axios.post(url, fieldValues);
       } else {
-        await Axios.put(url, fieldValues);
+        await Axios.patch(url, fieldValues);
       }
       navigate('/blog/');
     } catch (e) {
