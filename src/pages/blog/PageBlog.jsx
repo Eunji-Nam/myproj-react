@@ -1,9 +1,7 @@
+import BlogList from 'compomemts/blog/BlogList';
+
 function PageBlog() {
-  return (
-    <div className="text-red-500 border-b-2 border-red-500">
-      <h2>Blog</h2>
-    </div>
-  );
+  return <BlogList />;
 }
 
 export default PageBlog;
