@@ -22,8 +22,17 @@ function BlogList() {
 
       {postList.map((post) => (
         <div className="bg-green-100 border-2 border-green-400 my-2 p-1">
-          <span className="font-bold">{post.title}</span>
-          <p className="text-sm">{post.content}</p>
+          <span className="font-bold">
+            {post.title}
+            <span className="flex justify-end">
+              <button className="hover:text-blue-400 cursor-pointer mr-1">
+                수정
+              </button>
+              <button className="hover:text-red-400 cursor-pointer">
+                삭제
+              </button>
+            </span>
+          </span>
         </div>
       ))}
     </div>
