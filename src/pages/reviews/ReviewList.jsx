@@ -2,12 +2,15 @@ import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import DebugStates from 'compomemts/DebugStates';
 import Review from 'compomemts/Review';
+import { useNavigate } from 'react-router-dom';
 
 function ReviewList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [reviewList, setReviewList] = useState([]);
-  // useEffect의 첫번째 인자는 함수, 두번째 인자는 배열
+  const navigate = useNavigate();
+
+  // useEffect의 첫번째 인자는 함수, 두번째 인자는 배열(절대 생략하지 않음)
   useEffect(() => {
     refetch();
   }, []);
@@ -31,6 +34,27 @@ function ReviewList() {
       });
   };
 
+  const deleteReview = (deletingReview) => {
+    const { id: deletingReviewId } = deletingReview;
+    const url = `http://127.0.0.1:8000/shop/api/reviews/${deletingReviewId}/`;
+    Axios.delete(url)
+      .then(() => {
+        console.log('삭제 성공');
+        // 선택지 #1) 삭제된 항목만 상탯값에서 제거
+        setReviewList((prevReviewList) =>
+          prevReviewList.filter((review) => review.id !== deletingReviewId),
+        );
+
+        // 선택지 #2) 전체를 새로고침
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
       <h2>Review List</h2>
@@ -40,14 +64,26 @@ function ReviewList() {
 
       <button
         onClick={() => refetch()}
-        className="bg-yellow-400 hover:bg-red-400"
+        className="bg-yellow-400 hover:bg-red-400 mr-1"
       >
         새로고침
       </button>
 
+      <button
+        onClick={() => navigate('/reviews/new/')}
+        className="bg-blue-400 hover:bg-slate-400"
+      >
+        새 리뷰
+      </button>
+
       <div className="">
         {reviewList.map((review) => (
-          <Review key={review.id} review={review} />
+          <Review
+            key={review.id}
+            review={review}
+            handleEdit={() => navigate(`${review.id}/edit/`)}
+            handleDelete={() => deleteReview(review)}
+          />
         ))}
       </div>
 
