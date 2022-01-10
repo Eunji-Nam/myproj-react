@@ -10,7 +10,7 @@ function ReviewList() {
   const [reviewList, setReviewList] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect의 첫번째 인자는 함수, 두번째 인자는 배열
+  // useEffect의 첫번째 인자는 함수, 두번째 인자는 배열(절대 생략하지 않음)
   useEffect(() => {
     refetch();
   }, []);
@@ -81,6 +81,7 @@ function ReviewList() {
           <Review
             key={review.id}
             review={review}
+            handleEdit={() => navigate(`reviews/${review.id}/edit/`)}
             handleDelete={() => deleteReview(review)}
           />
         ))}
