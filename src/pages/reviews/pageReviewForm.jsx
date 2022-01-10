@@ -11,15 +11,11 @@ function PageReviewForm() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { reviewId } = useParams();
-  const [review, setReview] = useState(null);
-  const { fieldValues, handleFieldChange } = useFieldValues({
-    content: '',
-    score: 5,
-  });
-  // const [fieldValues, setfieldValues] = useState({
-  //   content: '',
-  //   score: 0,
-  // });
+  const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
+    useFieldValues({
+      content: '',
+      score: 5,
+    });
 
   // 다양함 함수를 정의
 
@@ -34,13 +30,16 @@ function PageReviewForm() {
   const handleSubmit = async () => {
     setLoading(true);
     setError(null);
-    const url = 'http://127.0.0.1:8000/shop/api/reviews/';
+    const url = !reviewId
+      ? 'http://127.0.0.1:8000/shop/api/reviews/'
+      : `http://localhost:8000/shop/api/reviews/${reviewId}/`;
     try {
-      // const response =
       await Axios.post(url, fieldValues);
-      // console.group('saveReview');
-      // console.log(response.data);
-      // console.groupEnd();
+      if (!reviewId) {
+        await Axios.post(url, fieldValues);
+      } else {
+        await Axios.put(url, fieldValues);
+      }
       navigate('/reviews/');
     } catch (e) {
       setError(e);
@@ -56,15 +55,29 @@ function PageReviewForm() {
   };
 
   // useEffect(() => {
-  //   if (reviewId) {
+  //   const fetchReview = async () => {
+  //     setLoading(true);
+  //     setError(null);
+
   //     const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
-  //     Axios.get(url)
-  //       .then(({ data }) => setReview(data))
-  //       .catch((error) => setError(error));
-  //   } else {
-  //     setReview(null);
-  //   }
-  // }, [reviewId]);
+  //     try {
+  //       const response = await Axios.get(url);
+  //       setFieldValues(response.data);
+  //     } catch (error) {
+  //       setError(error);
+  //     }
+  //     setLoading(false);
+
+  //     // Axios.get(url)
+  //     //   .then((response) => setFieldValues(response.data))
+  //     //   .catch((error) => setError(error))
+  //     //   .finally(() => {
+  //     //     setLoading(false);
+  //     //   });
+  //   };
+  //   if (reviewId) fetchReview();
+  //   else clearFieldValues();
+  // }, [reviewId]); // [reviewId]가 변경될 때마다 함수 호출
 
   // 표현 by jsx
   return (
