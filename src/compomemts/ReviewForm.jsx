@@ -2,7 +2,7 @@
 // handleFieldChange : 각 필드 값이 변화 시에 호출
 // handleSubmit: 인자없는 함수. submit 시에 호출
 
-function ReviewForm({ fieldValues, handleFieldChange, handleSubmit }) {
+function ReviewForm({ fieldValues, handleFieldChange, handleSubmit, loading }) {
   const handleClickedSubmitButton = () => {
     if (handleSubmit) {
       handleSubmit();
@@ -13,6 +13,7 @@ function ReviewForm({ fieldValues, handleFieldChange, handleSubmit }) {
 
   return (
     <div>
+      {loading && 'loading...'}
       <h2>Form</h2>
       <label className="block text-gray-700 text-sm font-bold mb-2 ">
         평점
@@ -22,6 +23,7 @@ function ReviewForm({ fieldValues, handleFieldChange, handleSubmit }) {
         name="score"
         value={fieldValues.score}
         onChange={handleFieldChange}
+        disabled={loading}
         className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
       >
         <option>0</option>
@@ -37,14 +39,17 @@ function ReviewForm({ fieldValues, handleFieldChange, handleSubmit }) {
         name="content"
         value={fieldValues.content}
         onChange={handleFieldChange}
+        disabled={loading}
         style={{ marginTop: 0, marginBottom: 12, height: 65 }}
         className="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
       />
 
       <button
         onClick={() => handleClickedSubmitButton()}
+        disabled={loading}
         className="shadow border bg-blue-100 hover:bg-blue-300 border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
       >
+        {loading && '로딩아이콘'}
         저장하기
       </button>
     </div>

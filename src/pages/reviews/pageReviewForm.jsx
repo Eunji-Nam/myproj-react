@@ -7,10 +7,11 @@ import ReviewForm from 'compomemts/ReviewForm';
 
 function PageReviewForm() {
   // 상탯값 정의. 훅 호출
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { reviewId } = useParams();
   const [review, setReview] = useState(null);
-  const [error, setError] = useState(null);
   const { fieldValues, handleFieldChange } = useFieldValues({
     content: '',
     score: 5,
@@ -31,6 +32,8 @@ function PageReviewForm() {
   // };
 
   const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
     const url = 'http://127.0.0.1:8000/shop/api/reviews/';
     try {
       // const response =
@@ -40,8 +43,10 @@ function PageReviewForm() {
       // console.groupEnd();
       navigate('/reviews/');
     } catch (e) {
+      setError(e);
       console.error(e);
     }
+    setLoading(false);
 
     // .then(() => navigate('/reviews/'))
     // .catch((error) => {
@@ -68,7 +73,8 @@ function PageReviewForm() {
       <ReviewForm
         fieldValues={fieldValues}
         handleFieldChange={handleFieldChange}
-        handleSubmit={() => {}}
+        handleSubmit={handleSubmit}
+        loading={loading}
       />
       <DebugStates reviewId={reviewId} fieldValues={fieldValues} />
     </div>
