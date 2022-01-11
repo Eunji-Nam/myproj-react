@@ -23,10 +23,16 @@ function TopNav() {
           <MyLink to="examples/clock/">시계</MyLink>
         </li>
         <li>
-          <MyLink to="examples/css-module/">Css Module</MyLink>
+          <MyLink to="examples/css-module/">CssModule</MyLink>
         </li>
         <li>
-          <MyLink to="examples/css-in-js/">Css In Js</MyLink>
+          <MyLink to="examples/css-in-js/">CssInJs</MyLink>
+        </li>
+        <li>
+          <MyLink to="examples/context-api/">ContextApiSample</MyLink>
+        </li>
+        <li>
+          <MyLink to="examples/context-api-2/">ContextApiSample2</MyLink>
         </li>
       </ul>
     </div>
