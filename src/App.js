@@ -10,8 +10,10 @@ import PagePost from 'pages/blog/PagePost';
 import PagePostDetail from 'pages/blog/PagePostDetail';
 import PagePostForm from 'pages/blog/PagePostForm';
 import Clock from 'pages/examples/Clock';
+import useWindowWidth from 'pages/examples/useWindowWidth';
 
 function App() {
+  const windowWidth = useWindowWidth();
   return (
     <>
       <div className="app">
@@ -29,6 +31,8 @@ function App() {
           <Route path="reviews/:reviewId/edit/" element={<PageReviewForm />} />
           <Route path="/examples/components/" element={<Components />} />
         </Routes>
+        <hr />
+        윈도우 가로크기 : {windowWidth}px
       </div>
       <Routes>
         <Route path="/examples/clock/" element={<Clock />} />

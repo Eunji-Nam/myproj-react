@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Clock.css';
+import useCurrentTime from './useCurrentTime';
 
 const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function Clock() {
   const [date, setDate] = useState(new Date());
+  const currentTime = useCurrentTime();
+
   useEffect(
     // 이 함수는 현 컴포넌트가 mount 시에 호출
     () => {
@@ -18,6 +21,7 @@ function Clock() {
     },
     [],
   );
+
   return (
     <div className="clock-wrapper">
       <h2>시계</h2>
@@ -27,8 +31,9 @@ function Clock() {
           {WEEKDAYS[date.getDay()]}
         </p>
         <p className="time">
+          {currentTime}
           {/* {date.toLocaleTimeString('en-us')} */}
-          {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
+          {/* {date.getHours()}:{date.getMinutes()}:{date.getSeconds()} */}
         </p>
         <p className="text">Powered by React.js</p>
       </div>
