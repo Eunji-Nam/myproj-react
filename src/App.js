@@ -1,7 +1,7 @@
 import ReviewList from 'pages/reviews/ReviewList';
 import Profile from 'pages/accounts/Profile';
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Router } from 'react-router-dom';
 import Login from 'pages/accounts/Login';
 import TopNav from 'compomemts/TopNav';
 import Components from 'pages/examples/Components';
@@ -11,6 +11,8 @@ import PagePostDetail from 'pages/blog/PagePostDetail';
 import PagePostForm from 'pages/blog/PagePostForm';
 import Clock from 'pages/examples/Clock';
 import useWindowWidth from 'pages/examples/useWindowWidth';
+import CssModule from 'pages/examples/CssModule';
+import CssInJs from 'pages/examples/CssInJs';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -30,6 +32,8 @@ function App() {
           <Route path="/reviews/new/" element={<PageReviewForm />} />
           <Route path="reviews/:reviewId/edit/" element={<PageReviewForm />} />
           <Route path="/examples/components/" element={<Components />} />
+          <Route path="/examples/css-module/" element={<CssModule />} />
+          <Route path="/examples/css-in-js/" element={<CssInJs />} />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px
