@@ -1,4 +1,9 @@
-function PostForm({ fieldValues, handleFieldChange, handleSubmit }) {
+function PostForm({
+  fieldValues,
+  errorMessages,
+  handleFieldChange,
+  handleSubmit,
+}) {
   const handlePostSubmit = () => {
     if (handleSubmit) {
       handleSubmit();
@@ -8,21 +13,27 @@ function PostForm({ fieldValues, handleFieldChange, handleSubmit }) {
   return (
     <div className="rounded border-2 border-blue-300 mb-2 p-2">
       <label className="block text-gray-700 font-bold">title</label>
-      <input
-        onChange={handleFieldChange}
-        type="text"
-        name="title"
-        value={fieldValues.title}
-        className="border border-blue-500 shodow leading-tight w-full py-2 px-3 mb-3"
-      />
+      <div>
+        <div className="text-red-400 text-xs">{errorMessages.title}</div>
+        <input
+          onChange={handleFieldChange}
+          type="text"
+          name="title"
+          value={fieldValues.title}
+          className="border border-blue-500 shodow leading-tight w-full py-2 px-3 mb-3"
+        />
+      </div>
 
       <label className="block text-gray-700 font-bold">content</label>
-      <textarea
-        onChange={handleFieldChange}
-        name="content"
-        value={fieldValues.content}
-        className="border border-blue-500 shodow leading-tight w-full py-2 px-3 mb-3 "
-      ></textarea>
+      <div>
+        <div className="text-red-400 text-xs">{errorMessages.content}</div>
+        <textarea
+          onChange={handleFieldChange}
+          name="content"
+          value={fieldValues.content}
+          className="border border-blue-500 shodow leading-tight w-full py-2 px-3 mb-3 "
+        />
+      </div>
 
       <button
         onClick={() => handlePostSubmit()}

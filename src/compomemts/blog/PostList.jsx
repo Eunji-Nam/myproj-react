@@ -35,7 +35,7 @@ function PostList() {
 
   return (
     <div>
-      <h2>Post List</h2>
+      <h2>Post 목록</h2>
       <button
         onClick={() => navigate('/blog/new/')}
         className="bg-orange-200 hover:bg-orange-400 p-1 rounded text-sm cursor-point"
@@ -48,24 +48,25 @@ function PostList() {
           key={post.id}
           className="bg-green-100 border-2 border-green-400 my-2 p-1"
         >
-          <ul
+          <div
             onClick={() => {
               navigate(`/blog/${post.id}/`);
             }}
             className="font-bold hover:text-green-700 cursor-pointer"
           >
+            <img src="https://placeimg.com/160/120/animals" alt={post.title} />
             {post.title}
-          </ul>
+          </div>
           <div className="flex justify-end">
             <button
               onClick={() => navigate(`/blog/${post.id}/edit/`)}
-              className="hover:text-blue-400 cursor-pointer mr-1"
+              className="text-xs hover:text-blue-400 cursor-pointer mr-1"
             >
               수정
             </button>
             <button
               onClick={() => handlePostDelete(post)}
-              className="hover:text-red-400 cursor-pointer"
+              className="text-xs hover:text-red-400 cursor-pointer"
             >
               삭제
             </button>

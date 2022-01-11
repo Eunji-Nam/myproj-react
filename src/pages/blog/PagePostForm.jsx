@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function PagePostForm() {
   const [error, setError] = useState(null);
+  const [errorMessages, setErrorMessages] = useState({});
   const navigate = useNavigate();
   const { postId } = useParams();
   const { fieldValues, handleFieldChange, clearFieldValues, setFieldValues } =
@@ -26,6 +27,7 @@ function PagePostForm() {
   }, [postId]);
 
   const handleSubmit = async () => {
+    setErrorMessages({});
     const url = !postId ? `/blog/api/posts/` : `/blog/api/posts/${postId}/`;
     try {
       if (!postId) {
@@ -36,6 +38,8 @@ function PagePostForm() {
       navigate('/blog/');
     } catch (e) {
       setError(e);
+
+      setErrorMessages(e.response.data);
     }
   };
 
@@ -43,6 +47,7 @@ function PagePostForm() {
     <div>
       {postId ? '수정' : '생성'}
       <PostForm
+        errorMessages={errorMessages}
         fieldValues={fieldValues}
         handleFieldChange={handleFieldChange}
         handleSubmit={handleSubmit}
