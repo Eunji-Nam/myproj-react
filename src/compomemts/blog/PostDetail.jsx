@@ -29,7 +29,9 @@ function Post({ post }) {
       <div className="text-sm">
         {/* 정규표현식: split(/[\r\n]+/) => \r\n 가 나올 때 마다 split 됨 */}
         {post.content.split(/[\r\n]+/).map((line, index) => (
-          <p key={index}>{line}</p>
+          <p key={index} className="indent-2 py-2">
+            {line}
+          </p>
         ))}
       </div>
     </div>
