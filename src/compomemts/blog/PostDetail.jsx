@@ -3,26 +3,35 @@ import { useEffect, useState } from 'react';
 import { axiosInstance } from 'api/base';
 
 function PostDetail() {
-  const [postList, setPostList] = useState([]);
+  const [post, setPost] = useState(null);
   const { postId } = useParams();
 
   useEffect(() => {
-    const url = `/blog/api/posts/${postId}`;
+    const url = `/blog/api/posts/${postId}`; // 배열이 아닌 하나의 obj로 옴
     axiosInstance
       .get(url)
       .then(({ data }) => {
-        setPostList(data);
+        setPost(data);
       })
       .catch((e) => e);
   }, [postId]);
 
+  return <div className="my-5">{post && <Post post={post} />}</div>;
+}
+
+function Post({ post }) {
   return (
-    <div className="my-5">
-      <span key={postList.id} className="font-bold">
-        <h1>{postList.title}</h1>
+    <div>
+      <span key={post.id} className="font-bold text-lg">
+        <h1>{post.title}</h1>
       </span>
-      <img src="https://placeimg.com/640/480/animals" />
-      <p className="text-sm">{postList.content}</p>
+      <img src="https://placeimg.com/640/480/animals" alt={post.title} />
+      <div className="text-sm">
+        {/* 정규표현식: split(/[\r\n]+/) => \r\n 가 나올 때 마다 split 됨 */}
+        {post.content.split(/[\r\n]+/).map((line, index) => (
+          <p key={index}>{line}</p>
+        ))}
+      </div>
     </div>
   );
 }
