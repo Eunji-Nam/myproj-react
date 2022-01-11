@@ -37,11 +37,10 @@ function PageReviewForm() {
       ? `/shop/api/reviews/`
       : `/shop/api/reviews/${reviewId}/`;
     try {
-      await axiosInstance.post(url, fieldValues);
       if (!reviewId) {
         await axiosInstance.post(url, fieldValues);
       } else {
-        await axiosInstance.put(url, fieldValues);
+        await axiosInstance.patch(url, fieldValues);
       }
       navigate('/reviews/');
     } catch (e) {
@@ -59,30 +58,29 @@ function PageReviewForm() {
     // .finally(() => setfieldValues({}));
   };
 
-  // useEffect(() => {
-  //   const fetchReview = async () => {
-  //     setLoading(true);
-  //     setError(null);
+  useEffect(() => {
+    const url = `/shop/api/reviews/${reviewId}/`;
+    axiosInstance
+      .get(url)
+      .then(({ data }) => {
+        setFieldValues(data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
 
-  //     const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
-  //     try {
-  //       const response = await Axios.get(url);
-  //       setFieldValues(response.data);
-  //     } catch (error) {
-  //       setError(error);
-  //     }
-  //     setLoading(false);
+    setLoading(false);
 
-  //     // Axios.get(url)
-  //     //   .then((response) => setFieldValues(response.data))
-  //     //   .catch((error) => setError(error))
-  //     //   .finally(() => {
-  //     //     setLoading(false);
-  //     //   });
-  //   };
-  //   if (reviewId) fetchReview();
-  //   else clearFieldValues();
-  // }, [reviewId]); // [reviewId]가 변경될 때마다 함수 호출
+    //     // Axios.get(url)
+    //     //   .then((response) => setFieldValues(response.data))
+    //     //   .catch((error) => setError(error))
+    //     //   .finally(() => {
+    //     //     setLoading(false);
+    //     //   });
+    //   };
+    //   if (reviewId) fetchReview();
+    //   else clearFieldValues();
+  }, [reviewId]); // [reviewId]가 변경될 때마다 함수 호출
 
   // 표현 by jsx
   return (
