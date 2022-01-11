@@ -44,7 +44,10 @@ function PostList() {
       </button>
 
       {postList.map((post) => (
-        <div className="bg-green-100 border-2 border-green-400 my-2 p-1">
+        <div
+          key={post.id}
+          className="bg-green-100 border-2 border-green-400 my-2 p-1"
+        >
           <ul
             onClick={() => {
               navigate(`/blog/${post.id}/`);

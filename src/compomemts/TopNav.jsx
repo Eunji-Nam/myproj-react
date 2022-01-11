@@ -19,6 +19,9 @@ function TopNav() {
         <li>
           <MyLink to="examples/components/">예시</MyLink>
         </li>
+        <li>
+          <MyLink to="examples/clock/">시계</MyLink>
+        </li>
       </ul>
     </div>
   );

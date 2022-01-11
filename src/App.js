@@ -9,25 +9,31 @@ import PageReviewForm from 'pages/reviews/pageReviewForm';
 import PagePost from 'pages/blog/PagePost';
 import PagePostDetail from 'pages/blog/PagePostDetail';
 import PagePostForm from 'pages/blog/PagePostForm';
+import Clock from 'pages/examples/Clock';
 
 function App() {
   return (
-    <div className="app">
-      <TopNav />
+    <>
+      <div className="app">
+        <TopNav />
+        <Routes>
+          <Route path="/" element={<Navigate to="/reviews/" />} />
+          <Route path="/accounts/login/" element={<Login />} />
+          <Route path="/accounts/profile/" element={<Profile />} />
+          <Route path="/blog/" element={<PagePost />} />
+          <Route path="/blog/new/" element={<PagePostForm />} />
+          <Route path="/blog/:postId/" element={<PagePostDetail />} />
+          <Route path="/blog/:postId/edit/" element={<PagePostForm />} />
+          <Route path="/reviews/" element={<ReviewList />} />
+          <Route path="/reviews/new/" element={<PageReviewForm />} />
+          <Route path="reviews/:reviewId/edit/" element={<PageReviewForm />} />
+          <Route path="/examples/components/" element={<Components />} />
+        </Routes>
+      </div>
       <Routes>
-        <Route path="/" element={<Navigate to="/reviews/" />} />
-        <Route path="/accounts/login/" element={<Login />} />
-        <Route path="/accounts/profile/" element={<Profile />} />
-        <Route path="/blog/" element={<PagePost />} />
-        <Route path="/blog/new/" element={<PagePostForm />} />
-        <Route path="/blog/:postId/" element={<PagePostDetail />} />
-        <Route path="/blog/:postId/edit/" element={<PagePostForm />} />
-        <Route path="/reviews/" element={<ReviewList />} />
-        <Route path="/reviews/new/" element={<PageReviewForm />} />
-        <Route path="reviews/:reviewId/edit/" element={<PageReviewForm />} />
-        <Route path="/examples/components/" element={<Components />} />
+        <Route path="/examples/clock/" element={<Clock />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
