@@ -1,8 +1,8 @@
-import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import DebugStates from 'compomemts/DebugStates';
 import Review from 'compomemts/Review';
 import { useNavigate } from 'react-router-dom';
+import { axiosInstance } from 'api/base';
 
 function ReviewList() {
   const [loading, setLoading] = useState(false);
@@ -19,9 +19,10 @@ function ReviewList() {
     setLoading(true);
     setError(null);
 
-    const url = 'http://127.0.0.1:8000/shop/api/reviews/';
+    const url = `/shop/api/reviews/`;
     // Promise 객체
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setReviewList(data);
       })
@@ -36,8 +37,9 @@ function ReviewList() {
 
   const deleteReview = (deletingReview) => {
     const { id: deletingReviewId } = deletingReview;
-    const url = `http://127.0.0.1:8000/shop/api/reviews/${deletingReviewId}/`;
-    Axios.delete(url)
+    const url = `/shop/api/reviews/${deletingReviewId}/`;
+    axiosInstance
+      .delete(url)
       .then(() => {
         console.log('삭제 성공');
         // 선택지 #1) 삭제된 항목만 상탯값에서 제거

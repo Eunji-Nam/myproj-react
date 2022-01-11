@@ -1,14 +1,15 @@
-import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { axiosInstance } from 'api/base';
 
 function PostDetail() {
   const [postList, setPostList] = useState([]);
   const { postId } = useParams();
 
   useEffect(() => {
-    const url = `http://127.0.0.1:8000/blog/api/posts/${postId}`;
-    Axios.get(url)
+    const url = `/blog/api/posts/${postId}`;
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setPostList(data);
       })

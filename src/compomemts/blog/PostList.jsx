@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import { axiosInstance } from 'api/base';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,9 @@ function PostList() {
 
   useEffect(() => {
     const fetchPost = () => {
-      const url = 'http://127.0.0.1:8000/blog/api/posts/';
-      Axios.get(url)
+      const url = `/blog/api/posts/`;
+      axiosInstance
+        .get(url)
         .then(({ data }) => {
           setPostList(data);
         })
@@ -20,9 +21,10 @@ function PostList() {
 
   const handlePostDelete = (deletingPost) => {
     const { id: deletingPostId } = deletingPost;
-    const url = `http://127.0.0.1:8000/blog/api/posts/${deletingPostId}/`;
+    const url = `/blog/api/posts/${deletingPostId}/`;
 
-    Axios.delete(url)
+    axiosInstance
+      .delete(url)
       .then(() => {
         setPostList((prevPostList) =>
           prevPostList.filter((post) => post.id !== deletingPostId),
