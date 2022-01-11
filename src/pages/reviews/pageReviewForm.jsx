@@ -16,6 +16,7 @@ function PageReviewForm() {
       content: '',
       score: 5,
     });
+  const [errorMessages, setErrorMessages] = useState({});
 
   // 다양함 함수를 정의
 
@@ -30,6 +31,8 @@ function PageReviewForm() {
   const handleSubmit = async () => {
     setLoading(true);
     setError(null);
+    setErrorMessages({});
+
     const url = !reviewId
       ? `/shop/api/reviews/`
       : `/shop/api/reviews/${reviewId}/`;
@@ -44,6 +47,8 @@ function PageReviewForm() {
     } catch (e) {
       setError(e);
       console.error(e);
+
+      setErrorMessages(e.response.data);
     }
     setLoading(false);
 
@@ -85,11 +90,16 @@ function PageReviewForm() {
       {reviewId ? '수정' : '생성'}
       <ReviewForm
         fieldValues={fieldValues}
+        errorMessages={errorMessages}
         handleFieldChange={handleFieldChange}
         handleSubmit={handleSubmit}
         loading={loading}
       />
-      <DebugStates reviewId={reviewId} fieldValues={fieldValues} />
+      <DebugStates
+        reviewId={reviewId}
+        fieldValues={fieldValues}
+        errorMessages={errorMessages}
+      />
     </div>
   );
 }
