@@ -1,11 +1,16 @@
-import usdAxios from 'axios-hooks';
+import { useApiAxios } from 'api/base';
 import DebugStates from 'compomemts/DebugStates';
+import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
 
 function ArticleList() {
-  const [{ data: articleList, loading, error }, refetch] = usdAxios(
-    'http://localhost:8000/news/api/articles/',
+  const [{ data: articleList, loading, error }, refetch] = useApiAxios(
+    '/news/api/articles/',
   );
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div>
