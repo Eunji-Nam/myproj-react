@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import DebugStates from 'compomemts/DebugStates';
-import Review from 'compomemts/Review';
+import Review from 'compomemts/Review/Review';
 import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from 'api/base';
 
