@@ -1,21 +1,44 @@
+import useAxios from 'axios-hooks';
 import Button from 'compomemts/Button';
 import DebugStates from 'compomemts/DebugStates';
 import H2 from 'compomemts/H2';
+import LoadingIndicator from 'compomemts/LoadingIndicator';
 import useFieldValues from 'hook/usefieldValues';
+import { useNavigate } from 'react-router-dom';
 
 const INIT_FIELD_VALUES = { title: '', content: '' };
 
 function PageNewsArticleForm() {
+  const navigate = useNavigate();
+  const [{ loading: saveLoading, error: saveError }, saveRequest] = useAxios(
+    {
+      url: 'http://localhost:8000/news/api/articles/',
+      method: 'POST',
+    },
+    { manual: true },
+  );
+
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submited !!!');
+
+    saveRequest({
+      data: fieldValues,
+    }).then((response) => {
+      const savedPost = response.data;
+      navigate(`/news/${savedPost.id}`);
+    });
   };
 
   return (
     <div>
       <H2>Article Form</H2>
+
+      {saveLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+      {saveError &&
+        `저장 중 에러가 발생했습니다. (${saveError.response.status} ${saveError.response.statusText})`}
+
       <form onSubmit={handleSubmit}>
         <div className="my-3">
           <input
