@@ -1,21 +1,22 @@
+import { useApiAxios } from 'api/base';
 import Button from 'compomemts/Button';
 import DebugStates from 'compomemts/DebugStates';
 import H2 from 'compomemts/H2';
 import LoadingIndicator from 'compomemts/LoadingIndicator';
 import useFieldValues from 'hook/usefieldValues';
-import { useApiAxios } from 'api/base';
 
-// !articleId: 생성
-// articleId : 수정
 const INIT_FIELD_VALUES = { title: '', content: '' };
 
+// !articleId : 생성
+// articleId  : 수정
+
 function ArticleForm({ articleId, handleDidSave }) {
-  // articleId 값을 있을 때만 조회
+  // articleId 값이 있을 때에만 조회
   // articleId => manual=false
   // !articleId => manual=true
   const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
     `/news/api/articles/${articleId}/`,
-    { manuel: !articleId },
+    { manual: !articleId },
   );
 
   const [
@@ -42,8 +43,20 @@ function ArticleForm({ articleId, handleDidSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // fieldValues : 객체 (except 파일)
+    // 파일을 업로드할려면, FormData 인스턴스를 써야합니다.
+    const formData = new FormData();
+    Object.entries(fieldValues).forEach(([name, value]) => {
+      if (Array.isArray(value)) {
+        const fileList = value;
+        fileList.forEach((file) => formData.append(name, file));
+      } else {
+        formData.append(name, value);
+      }
+    });
+
     saveRequest({
-      data: fieldValues,
+      data: formData,
     }).then((response) => {
       const savedPost = response.data;
       if (handleDidSave) handleDidSave(savedPost);
@@ -54,7 +67,7 @@ function ArticleForm({ articleId, handleDidSave }) {
     <div>
       <H2>Article Form</H2>
 
-      {saveLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+      {saveLoading && <LoadingIndicator>저장 중 ...</LoadingIndicator>}
       {saveError &&
         `저장 중 에러가 발생했습니다. (${saveError.response.status} ${saveError.response.statusText})`}
 
@@ -89,13 +102,28 @@ function ArticleForm({ articleId, handleDidSave }) {
         </div>
 
         <div className="my-3">
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="photo"
+            // value=""
+            onChange={handleFieldChange}
+          />
+          {saveErrorMessages.photo?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
+        </div>
+
+        <div className="my-3">
           <Button>저장하기</Button>
         </div>
       </form>
       <DebugStates
         article={article}
-        getError={getError}
         getLoading={getLoading}
+        getError={getError}
         saveErrorMessages={saveErrorMessages}
         fieldValues={fieldValues}
       />
