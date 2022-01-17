@@ -12,6 +12,7 @@ const INIT_FIELD_VALUES = { username: '', password: '' };
 
 function PageLogin() {
   const navigate = useNavigate();
+
   const [{ loading, error }, requestToken] = useApiAxios(
     {
       url: '/accounts/api/token/',
@@ -24,6 +25,7 @@ function PageLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     requestToken({ data: fieldValues }).then((response) => {
       const { access, refresh } = response.data;
       // TODO: access/refresh token을 브라우저 어딘가에 저장
