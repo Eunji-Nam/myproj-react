@@ -1,8 +1,8 @@
 import ReviewList from 'pages/reviews/ReviewList';
-import Profile from 'pages/accounts/Profile';
+import PageProfile from 'pages/accounts/PageProfile';
 import './App.css';
 import { Routes, Route, Navigate, Router } from 'react-router-dom';
-import Login from 'pages/accounts/Login';
+import PageLogin from 'pages/accounts/PageLogin';
 import TopNav from 'compomemts/TopNav';
 import Components from 'pages/examples/Components';
 import PageReviewForm from 'pages/reviews/pageReviewForm';
@@ -27,8 +27,8 @@ function App() {
         <TopNav />
         <Routes>
           <Route path="/" element={<Navigate to="/blog/" />} />
-          <Route path="/accounts/login/" element={<Login />} />
-          <Route path="/accounts/profile/" element={<Profile />} />
+          <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/accounts/profile/" element={<PageProfile />} />
           <Route path="/blog/" element={<PagePost />} />
           <Route path="/blog/new/" element={<PagePostForm />} />
           <Route path="/blog/:postId/" element={<PagePostDetail />} />
