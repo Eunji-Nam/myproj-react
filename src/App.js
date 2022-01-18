@@ -26,7 +26,7 @@ function App() {
       <div className="app">
         <TopNav />
         <Routes>
-          <Route path="/" element={<Navigate to="/blog/" />} />
+          <Route path="/" element={<Navigate to="/accounts/login/" />} />
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/accounts/profile/" element={<PageProfile />} />
           <Route path="/blog/" element={<PagePost />} />
