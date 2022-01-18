@@ -3,6 +3,7 @@ import Button from 'compomemts/Button';
 import DebugStates from 'compomemts/DebugStates';
 import H2 from 'compomemts/H2';
 import LoadingIndicator from 'compomemts/LoadingIndicator';
+import useAuth from 'hook/useAuth';
 import useFieldValues from 'hook/usefieldValues';
 import produce from 'immer';
 import { useEffect } from 'react';
@@ -13,11 +14,18 @@ const INIT_FIELD_VALUES = { title: '', content: '' };
 // articleId  : 수정
 
 function ArticleForm({ articleId, handleDidSave }) {
+  const [auth] = useAuth();
   // articleId 값이 있을 때에만 조회
   // articleId => manual=false
   // !articleId => manual=true
   const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
-    `/news/api/articles/${articleId}/`,
+    {
+      url: `/news/api/articles/${articleId}/`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
     { manual: !articleId },
   );
 
@@ -34,6 +42,9 @@ function ArticleForm({ articleId, handleDidSave }) {
         ? '/news/api/articles/'
         : `/news/api/articles/${articleId}/`,
       method: !articleId ? 'POST' : 'PUT',
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
     },
     { manual: true },
   );
@@ -111,7 +122,7 @@ function ArticleForm({ articleId, handleDidSave }) {
 
       {saveLoading && <LoadingIndicator>저장 중 ...</LoadingIndicator>}
       {saveError &&
-        `저장 중 에러가 발생했습니다. (${saveError.response.status} ${saveError.response.statusText})`}
+        `저장 중 에러가 발생했습니다. (${saveError.response?.status} ${saveError.response?.statusText})`}
 
       <form onSubmit={handleSubmit}>
         <div className="my-3">
