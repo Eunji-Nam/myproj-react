@@ -9,7 +9,7 @@ const INIT_FIELD_VALUES = { username: '', password: '' };
 function LoginForm() {
   const navigate = useNavigate();
 
-  const [auth, setAuth] = useAuth();
+  const [auth, _, login] = useAuth();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {
@@ -29,8 +29,7 @@ function LoginForm() {
         response.data;
       // TODO: access/refresh token을 브라우저 어딘가에 저장
       // 저장해서 페이지 새로고침이 발생하더라도 그 token이 유실되지 않아야 함
-      setAuth({
-        isLoggedIn: true,
+      login({
         access,
         refresh,
         username,
