@@ -1,7 +1,8 @@
-import ReviewList from 'pages/reviews/ReviewList';
-import PageProfile from 'pages/accounts/PageProfile';
 import './App.css';
 import { Routes, Route, Navigate, Router } from 'react-router-dom';
+import ReviewList from 'pages/reviews/ReviewList';
+import PageProfile from 'pages/accounts/PageProfile';
+import PageJoin from 'pages/accounts/PageJoin';
 import PageLogin from 'pages/accounts/PageLogin';
 import TopNav from 'compomemts/TopNav';
 import Components from 'pages/examples/Components';
@@ -26,9 +27,10 @@ function App() {
       <div className="app">
         <TopNav />
         <Routes>
-          <Route path="/" element={<Navigate to="/accounts/login/" />} />
+          <Route path="/" element={<Navigate to="/news/" />} />
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/accounts/profile/" element={<PageProfile />} />
+          <Route path="/accounts/join/" element={<PageJoin />} />
           <Route path="/blog/" element={<PagePost />} />
           <Route path="/blog/new/" element={<PagePostForm />} />
           <Route path="/blog/:postId/" element={<PagePostDetail />} />

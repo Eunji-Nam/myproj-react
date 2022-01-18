@@ -16,7 +16,7 @@ function TopNav() {
         {!auth.isLoggedIn && (
           <>
             <MyLink to="/accounts/login/">로그인</MyLink>
-            <MyLink to="#">회원가입</MyLink>
+            <MyLink to="/accounts/join/">회원가입</MyLink>
           </>
         )}
         {auth.isLoggedIn && (
